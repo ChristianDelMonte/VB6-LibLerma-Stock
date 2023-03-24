@@ -223,7 +223,7 @@ Private Sub ExportarCSVfromDB(Grid1 As MSFlexGrid, Grid2 As MSFlexGrid, CSVEntra
     Dim n As Long
     Dim Lid As Long, Datos As STKDatabase
     Dim Mdbprecio As String, Csvprecio As String, Csvprecioprom As String
-    Dim mdbnum As Double, csvnum As Double, CBarritas As String, CStock As Integer
+    Dim mdbnum As Double, csvnum As Double, CBarritas As String, CStock As Long, TStock As Long
     Dim msgito As String
     Dim mdbcalc As Double, mdbnuewnum As Double, PrecioProm As String
    
@@ -244,6 +244,7 @@ Private Sub ExportarCSVfromDB(Grid1 As MSFlexGrid, Grid2 As MSFlexGrid, CSVEntra
 '//chequeamos si debemos mostrar el LOG o no
     If ShowLOG = True Then
         FrmLOG.Show , Me
+        FrmLOG2.Show , Me
     End If
     
   'preparaciones para lectura / escritura
@@ -320,22 +321,22 @@ Private Sub ExportarCSVfromDB(Grid1 As MSFlexGrid, Grid2 As MSFlexGrid, CSVEntra
         
         '// mdbcalc = calculo del porcetnaje de precio promocional
         If mdbnum < 500 Then
-            mdbcalc = 20 / 100 * mdbnum
+            mdbcalc = (20 / 100) * mdbnum
         Else
-            If mdbnum > 500 And mdbnum < 1500 Then
-                mdbcalc = 15 / 100 * mdbnum
+            If mdbnum > 500 And mdbnum < 5000 Then
+                mdbcalc = (15 / 100) * mdbnum
             Else
-                If mdbnum > 1500 And mdbnum < 5000 Then
-                    mdbcalc = 10 / 100 * mdbnum
+                If mdbnum > 5000 And mdbnum < 10000 Then
+                    mdbcalc = (10 / 100) * mdbnum
                 Else
-                    If mdbnum > 5000 Then
-                        mdbcalc = 5 / 100 * mdbnum
+                    If mdbnum > 10000 Then
+                        mdbcalc = (5 / 100) * mdbnum
                     End If
                 End If
             End If
         End If
         
-        '//mdbnewnum = suma del 10% del precio + precio
+        '//mdbnewnum = suma del % del precio + precio
         mdbnewnum = mdbnum + mdbcalc
         PrecioProm = Format(mdbnewnum, "0.00")
         
@@ -348,50 +349,40 @@ Private Sub ExportarCSVfromDB(Grid1 As MSFlexGrid, Grid2 As MSFlexGrid, CSVEntra
         
         'verificamos si hay que actualizar el stock del articulo
         If ChkStock.Value = 1 Then
-            CStock = CInt(Trim(Datos.Exis))
-            'Comprobaciones
-            If CStock < 0 Then
-                If CStock < -10 Then
-                    'mensage de que algo anda mal y no se modificara el stock del producto
+            'deshabilitamos por el momento la actualizacion de stock
+            'CStock = Campos(15)
+        Else
+            If Trim(Campos(15)) <> "" Then
+                TStock = CLng(Trim(Campos(15)))     'stock tienda nube
+                CStock = CLng(Trim(Datos.Exis))     'stock base de datos iberico
+                'verificamos por incoherencias en el stock de ambos sistemas
+                If TStock = 0 And TStock < CStock Then
+                    If CStock > 2 Then
+                        msgito = "!! STOCK: " & CodigoArt & " - " & Trim(Campos(1)) & " " & Trim(Campos(3)) & " " & Trim(Campos(4)) & " - TNDB: " & TStock & " << IBER: " & CStock
+                        If ShowLOG = True Then FrmLOG2.List1.AddItem msgito
+                    End If
                 Else
-                    'stock 0
-                End If
-            Else
-                If CStock = 1 Then
-                    'stock 0
-                Else
-                    If CStock = 2 Then
-                        'stock=1
-                    Else
-                        If CStock = 3 Then
-                            'stock=1
-                        Else
-                            If CStock >= 4 Then
-                                'stock = stock / 2
-                            End If
-                        End If
+                    If TStock > CStock And CStock <= 0 And TStock <> 0 Then
+                        msgito = "!! STOCK: " & CodigoArt & " - " & Trim(Campos(1)) & " " & Trim(Campos(3)) & " " & Trim(Campos(4)) & " - TNDB: " & TStock & " >> IBER: " & CStock
+                        If ShowLOG = True Then FrmLOG.List1.AddItem msgito
                     End If
                 End If
             End If
-        'deshabilitamos por el momento la actualizacion de stock
-        '    CStock = Campos(15)
-        'Else
-        '    CStock = Campos(15)
-        'End If
+        End If
                 
         '/// exportamos los datos unificados entre el csv de origen y la database actualizada
         If Csvprecioprom = "" Then
             Write #33, Campos(0) & ";" & Campos(1) & ";" & Campos(2) & ";" & Campos(3) & _
             ";" & Campos(4) & ";" & Campos(5) & ";" & Campos(6) & ";" & Campos(7) & ";" & Campos(8) & _
             ";" & Mdbprecio & ";" & Campos(10) & ";" & Campos(11) & ";" & Campos(12) & ";" & Campos(13) & _
-            ";" & Campos(14) & ";" & Campos(15) & ";" & Campos(16) & ";" & CBarritas & _
+            ";" & Campos(14) & ";" & Campos(15) & ";" & CodigoArt & ";" & CBarritas & _
             ";" & Campos(18) & ";" & Campos(19) & ";" & Campos(20) & ";" & Campos(21) & ";" & Campos(22) & _
             ";" & Campos(23) & ";" & Campos(24)
         Else
             Write #33, Campos(0) & ";" & Campos(1) & ";" & Campos(2) & ";" & Campos(3) & _
             ";" & Campos(4) & ";" & Campos(5) & ";" & Campos(6) & ";" & Campos(7) & ";" & Campos(8) & _
             ";" & PrecioProm & ";" & Mdbprecio & ";" & Campos(11) & ";" & Campos(12) & ";" & Campos(13) & _
-            ";" & Campos(14) & ";" & Campos(15) & ";" & Campos(16) & ";" & CBarritas & _
+            ";" & Campos(14) & ";" & Campos(15) & ";" & CodigoArt & ";" & CBarritas & _
             ";" & Campos(18) & ";" & Campos(19) & ";" & Campos(20) & ";" & Campos(21) & ";" & Campos(22) & _
             ";" & Campos(23) & ";" & Campos(24)
         End If

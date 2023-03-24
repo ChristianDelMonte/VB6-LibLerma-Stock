@@ -59,7 +59,7 @@ Begin VB.Form IngVuelto
       _ExtentX        =   2249
       _ExtentY        =   582
       _Version        =   393216
-      Format          =   105775105
+      Format          =   112787457
       CurrentDate     =   43662
       MaxDate         =   47848
       MinDate         =   43465

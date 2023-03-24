@@ -2,14 +2,14 @@ VERSION 5.00
 Begin {78E93846-85FD-11D0-8487-00A0C90DC8A9} DataReport1 
    Caption         =   "Prometheus - Reporte de Bajas"
    ClientHeight    =   10935
-   ClientLeft      =   120
-   ClientTop       =   465
-   ClientWidth     =   20250
+   ClientLeft      =   225
+   ClientTop       =   570
+   ClientWidth     =   20160
    StartUpPosition =   3  'Windows Default
-   _ExtentX        =   35719
+   _ExtentX        =   35560
    _ExtentY        =   19288
    _Version        =   393216
-   _DesignerVersion=   100684101
+   _DesignerVersion=   100688400
    ReportWidth     =   8865
    BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
       Name            =   "Arial"

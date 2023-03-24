@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFlxGrd.ocx"
 Begin VB.Form frmResults 
    BorderStyle     =   5  'Sizable ToolWindow
    Caption         =   "Comparar Resultados"
@@ -87,7 +87,7 @@ With GridResults
 End With
 End Sub
 
-Private Sub GridResults_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub GridResults_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
 Dim CellData$
 With GridResults
     If .MouseRow >= .Rows Then Exit Sub

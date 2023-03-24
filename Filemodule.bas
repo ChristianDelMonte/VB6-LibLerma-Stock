@@ -1,14 +1,12 @@
 Attribute VB_Name = "FileModule"
 
 '***********************************************************************************************
-'** Libreria Lerma Stock
+'** Prometheus - Libreria Lerma Stock
 '** es una aplicacion desarrollada exclusivamente para llevar a cabo las tareas relacionadas
 '** con el control de stock de la libreria. Control de Vueltos y otras tareas necesarias
 '** que dependen de mi exclusiva responsabilidad.
 '** -------------------------------------------------------------------------------------------
 '** Desarrollado por: Christian Adrian Del Monte
-'** Utiliza partes de codigos de terceros descargados de PlanetSourceCode.com
-'** Adaptados y modificados personalmente para adaptarlos al proyecto actual
 '** Dudas o consultas: creadig@gmail.com / creadig@hotmail.com
 '** Ultima actualizacion: Agosto 2019
 '***********************************************************************************************
@@ -20,11 +18,11 @@ Public Type STKDatabase
     Precio As String * 10
 End Type
 
-Public Type VentasData                  'tipo para controlar los articulos de vuelto en ventas
-    Vid As Integer                      'identificador de registro o numero de id (unico)
-    Vdate As String * 10                     'fecha de carga de datos o fecha de venta o baja del aticulo
-    VSuc As Long                     'numero de sucursal involucrada en la transaccion
-    VTurno As Integer                   'turno responsable (1=mañana - 2=tarde)
+Public Type VentasData              'tipo para controlar los articulos de vuelto en ventas
+    Vid As Integer                  'identificador de registro o numero de id (unico)
+    Vdate As String * 10            'fecha de carga de datos o fecha de venta o baja del aticulo
+    VSuc As Long                    'numero de sucursal involucrada en la transaccion
+    VTurno As Integer               'turno responsable (1=mañana - 2=tarde)
     VICode As String * 8            'codigo del articulo
     VIDesc As String * 100          'descripcion del articulo
     VICosto As String * 10          'precio del articulo
@@ -311,7 +309,7 @@ Public Function GetFechaArch(Path As String) As String
     ' Lee las propiedades del archivo mediante GetFile
     On Error GoTo err
     Set Archivo = o_Fso.GetFile(Path)
-  
+
     'Visualiza el resultado: Creación ,acceso y modificado etc..
     'MsgBox "Fecha de creación del archivo: " & Format(Archivo.DateCreated), vbInformation
     'MsgBox "Fecha de modificación : " & Format(Archivo.DateLastModified), vbInformation

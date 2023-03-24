@@ -175,7 +175,7 @@ End Sub
 
 Private Sub sis_cplanillas_Click(Index As Integer)
 
-frmMain.Show , Me
+'frmMain.Show , Me
 
 End Sub
 

@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "mscomctl.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.OCX"
 Begin VB.Form IngVCons 
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Consulta / Informes de datos sobre Bajas ingresadas en sistema."
@@ -15,11 +15,47 @@ Begin VB.Form IngVCons
    ScaleWidth      =   8760
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin MSComctlLib.ListView Lv1 
+      Height          =   5625
+      Left            =   90
+      TabIndex        =   13
+      Top             =   1680
+      Width           =   8565
+      _ExtentX        =   15108
+      _ExtentY        =   9922
+      LabelWrap       =   -1  'True
+      HideSelection   =   -1  'True
+      _Version        =   393217
+      ForeColor       =   -2147483640
+      BackColor       =   -2147483643
+      BorderStyle     =   1
+      Appearance      =   1
+      NumItems        =   5
+      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   1
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   2
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   3
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   4
+         Object.Width           =   2540
+      EndProperty
+   End
    Begin VB.TextBox Text1 
       Height          =   285
       Left            =   945
       MaxLength       =   20
-      TabIndex        =   13
+      TabIndex        =   12
       Text            =   "0"
       Top             =   7470
       Width           =   1140
@@ -28,7 +64,7 @@ Begin VB.Form IngVCons
       Caption         =   "&Rendir"
       Height          =   375
       Left            =   2205
-      TabIndex        =   11
+      TabIndex        =   10
       Top             =   7425
       Width           =   1230
    End
@@ -36,69 +72,9 @@ Begin VB.Form IngVCons
       Caption         =   "&Imprimir"
       Height          =   375
       Left            =   6300
-      TabIndex        =   10
+      TabIndex        =   9
       Top             =   7425
       Width           =   1230
-   End
-   Begin MSComctlLib.ListView Lv1 
-      Height          =   5595
-      Left            =   45
-      TabIndex        =   9
-      Top             =   1710
-      Width           =   8565
-      _ExtentX        =   15108
-      _ExtentY        =   9869
-      View            =   3
-      LabelWrap       =   -1  'True
-      HideSelection   =   0   'False
-      FullRowSelect   =   -1  'True
-      GridLines       =   -1  'True
-      HotTracking     =   -1  'True
-      _Version        =   393217
-      ForeColor       =   -2147483640
-      BackColor       =   -2147483643
-      BorderStyle     =   1
-      Appearance      =   1
-      NumItems        =   8
-      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Text            =   "Fecha"
-         Object.Width           =   1411
-      EndProperty
-      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   1
-         Text            =   "Suc."
-         Object.Width           =   882
-      EndProperty
-      BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   2
-         Text            =   "Turno"
-         Object.Width           =   882
-      EndProperty
-      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   3
-         Text            =   "SKU"
-         Object.Width           =   1411
-      EndProperty
-      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   4
-         Text            =   "Articulo"
-         Object.Width           =   7056
-      EndProperty
-      BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   5
-         Text            =   "Cant."
-         Object.Width           =   882
-      EndProperty
-      BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   6
-         Text            =   "Rend?"
-         Object.Width           =   882
-      EndProperty
-      BeginProperty ColumnHeader(8) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   7
-         Text            =   "Comp. N"
-         Object.Width           =   1764
-      EndProperty
    End
    Begin VB.CommandButton Command3 
       Caption         =   "&Cerrar"
@@ -196,7 +172,7 @@ Begin VB.Form IngVCons
       Caption         =   "Comp. N°:"
       Height          =   195
       Left            =   135
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   7515
       Width           =   735
    End
