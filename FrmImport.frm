@@ -191,18 +191,20 @@ Begin VB.Form FrmImport
    End
    Begin VB.Label Label2 
       Alignment       =   2  'Center
-      BackColor       =   &H00FF8080&
+      BackColor       =   &H00004000&
       Caption         =   "Productos TIENDA NUBE"
+      ForeColor       =   &H00FFFFFF&
       Height          =   240
-      Left            =   7425
+      Left            =   7440
       TabIndex        =   4
       Top             =   360
       Width           =   7170
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
-      BackColor       =   &H00FF8080&
+      BackColor       =   &H00004000&
       Caption         =   "Productos IBERICO"
+      ForeColor       =   &H00FFFFFF&
       Height          =   240
       Left            =   90
       TabIndex        =   3
@@ -313,6 +315,8 @@ Private Sub ExportarCSVfromDB(Grid1 As MSFlexGrid, Grid2 As MSFlexGrid, CSVEntra
         
         '// mdbnum = precio real del producto
         'On Error Resume Next
+        
+        'Debug.Print Datos.Precio
         mdbnum = CDbl(Trim(Datos.Precio))
         Mdbprecio = Format(mdbnum, "0.00")
         
@@ -782,7 +786,11 @@ If err.Number = 32755 Then Exit Sub
 
 ConverTx = EstCMD.FileName
 
-Label2.Caption = "Productos TIENDA NUBE - Archivo:" & ConverTx
+If Len(ConverTx) > 15 Then
+    Label2.Caption = "Productos TIENDA NUBE - Archivo: " & "..." & Right$(ConverTx, 15)
+Else
+    Label2.Caption = "Productos TIENDA NUBE - Archivo: " & ConverTx
+End If
 
 'preguntar CSV destino
 'On Error Resume Next
